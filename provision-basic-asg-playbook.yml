@@ -4,17 +4,17 @@
   gather_facts: false
 
   vars:
-   image: "ami-d31da0a0"
-   architecture: "workshop-basic-asg"
+   image: "{{ ami }}"
+   architecture: "workshop-basic"
    loadb: "{{architecture}}-lb"
    auto_sc:  "{{architecture}}_asg"
    lc: "{{architecture}}_lc"
 
   vars_files:
     #contains the variables ami_access and ami_secret
-    - ../amiKeys.yml
+    - amiKeys.yml
     #contains the variables keypair, group, subnetID and regi
-    - ../regionInfo.yml
+    - regionInfo.yml
 
   tasks:
    #http://stackoverflow.com/questions/34016583/ansible-ec2-elb-lb-https-to-http-error
@@ -25,9 +25,7 @@
       security_group_ids: '{{group}}'
       name: "{{loadb}}"
       region: "{{regi}}"
-      subnets:
-       - subnet-009c5f59
-       - subnet-7365e316
+      subnets: "{{ subnetID }}"
       state: present
       listeners:
        - protocol: http
@@ -71,5 +69,4 @@
       desired_capacity: 2
       vpc_zone_identifier: '{{ subnetID }}'
       wait_for_instances: true
-      tags:
-        - Team: idun
+      tags: "{{ tags }}"

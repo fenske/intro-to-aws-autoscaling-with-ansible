@@ -1,7 +1,2 @@
 ---
-lookup_service_version: 0.2.111-SNAPSHOT
-postgres_version: 9.5.2
-
-docker_compose_content: "{{ lookup('template', 'docker-compose.yml') }}"
-lookup_env_content: "{{ lookup('file', 'lookup.env') }}"
 bootstrap_content: "{{ lookup('template', 'bootstrap.sh') }}"
