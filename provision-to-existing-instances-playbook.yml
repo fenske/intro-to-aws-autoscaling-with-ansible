@@ -1,0 +1,11 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Provision app
+      docker:
+          image: antonfenske/rest-webservice:{{ app_version }}
+          name: rest
+          state: reloaded
+          ports:
+          - "8080:8080"

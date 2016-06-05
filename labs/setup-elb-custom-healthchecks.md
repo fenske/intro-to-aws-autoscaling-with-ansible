@@ -1,4 +1,4 @@
-# Provisioning Autoscaling group with sereral EC2 instances and ELB
+# Provisioning Autoscaling group with sereral EC2 instances, ELB and custom ELB healthchecks
 
 In this lab you will provision an AWS autoscaling group which will create an ELB and 2 EC2 instances with EC2 instances healthchecks
 

@@ -62,6 +62,8 @@
          iops: 3000
          delete_on_termination: true
       user_data: "{{ bootstrap_content }}"
+  # TODO what is 'volumes' section for?
+
 
    #http://docs.ansible.com/ansible/ec2_asg_module.html
    #auto scaling group
@@ -76,7 +78,7 @@
       max_size: 4
       desired_capacity: 2
       vpc_zone_identifier: '{{ subnetID }}'
-      wait_for_instances: true
-      health_check_period: 300 #tune this value, currently takes too long
+      wait_for_instances: false
+      health_check_period: 300
       health_check_type: ELB
       tags: "{{ tags }}"
