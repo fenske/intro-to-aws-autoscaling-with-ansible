@@ -34,11 +34,13 @@
         unhealthy_threshold: 2
         healthy_threshold: 2
       subnets: "{{ subnetID }}"
+      security_group_ids: "{{ elb_security_group_ids }}"
+      scheme: internal
       state: present
       listeners:
        - protocol: http
          load_balancer_port: 80
-         instance_port: 80
+         instance_port: 8080
 
    #info on the ec2_lc module
    #http://docs.ansible.com/ansible/ec2_lc_module.html

@@ -1,11 +1,21 @@
 ---
 - hosts: all
+  serial: 1
 
+  pre_tasks:
+    - easy_install: name=pip state=latest
+      become: yes
+    - pip: name=docker-py
+      become: yes
+
+  #TODO Find a way how to update docker on the server side
   tasks:
     - name: Provision app
       docker:
+          docker_api_version: 1.21
           image: antonfenske/rest-webservice:{{ app_version }}
           name: rest
           state: reloaded
           ports:
           - "8080:8080"
+      become: yes
