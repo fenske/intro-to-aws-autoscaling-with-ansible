@@ -34,4 +34,6 @@ aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-
 ```
 
 ## Verify that app is working
+```
 curl http://<ip_addr>:8080/ping
+```

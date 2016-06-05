@@ -44,7 +44,15 @@ aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-
 ```
 
 ## Verify the new functionality
-curl http://internal-workshop-ec2-healthchecks-lb-265626770.eu-west-1.elb.amazonaws.com/foo
+### Via ELB
+```
+curl http://<elb_hostname>/foo
+```
+### For each instance
+```
+aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
+curl http://<instance_ip>_>/foo
+```
 
 ## TODO Make sure instances in different zones 
  
