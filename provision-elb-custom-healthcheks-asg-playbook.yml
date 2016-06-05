@@ -20,6 +20,7 @@
    #http://stackoverflow.com/questions/34016583/ansible-ec2-elb-lb-https-to-http-error
    #load balancer
    - ec2_elb_lb:
+      scheme: internal
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       security_group_ids: '{{group}}'
@@ -35,7 +36,6 @@
         healthy_threshold: 2
       subnets: "{{ subnetID }}"
       security_group_ids: "{{ elb_security_group_ids }}"
-      scheme: internal
       state: present
       listeners:
        - protocol: http
