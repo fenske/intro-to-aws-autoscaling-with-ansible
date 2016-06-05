@@ -5,7 +5,7 @@ In this lab you will provision an AWS autoscaling group which will create an ELB
 ## Provision an autoscaling group
 
 ```
-ansible-playbook provision-ec2-healthcheks-asg-playbook.yml
+ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
 ```
 
 ## Verify the instance states in the group
