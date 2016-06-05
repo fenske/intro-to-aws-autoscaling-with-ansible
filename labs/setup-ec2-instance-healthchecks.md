@@ -42,3 +42,6 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 ```
 aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb --profile <aws_profile_name>
 ```
+
+## Verify that app is working
+curl http://<ip_addr>:8080/ping
