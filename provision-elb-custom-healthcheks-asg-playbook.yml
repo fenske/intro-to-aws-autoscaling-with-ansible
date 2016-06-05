@@ -79,6 +79,4 @@
       wait_for_instances: true
       health_check_period: 300 #tune this value, currently takes too long
       health_check_type: ELB
-      tags:
-        - Team: idun
-        # fix tags placeholder problem
+      tags: "{{ tags }}"
