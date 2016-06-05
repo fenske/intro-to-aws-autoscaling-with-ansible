@@ -10,27 +10,27 @@ ansible-playbook provision-basic-asg-playbook.yml
 
 ## Verify the instance states in the group
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances' --profile <aws_profile_name>
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 ## Verify the states of the instances towards ELB
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb --profile <aws_profile_name>
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
 ```
 
 ## Shutting down an instance
 ```
-aws ec2 terminate-instances --instance-ids <ids_of_instanecs> --profile <predefined_aws_profile_for_instance>
+aws ec2 terminate-instances --instance-ids <ids_of_instanecs>
 ```
 
 ## Verify the instance states in the group
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances' --profile <aws_profile_name>
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 ## Verify the states of the instances towards ELB
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb --profile <aws_profile_name>
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
 ```
 
 ## Verify that app is working

@@ -12,7 +12,7 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 
 ## Verify the states of the instances towards ELB
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb --profile <aws_profile_name> 
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb 
 ```
 
 ## Verify the alarms
@@ -21,7 +21,7 @@ aws cloudwatch describe-alarms --alarm-names cpuDown_workshop-ec2-healthchecks-a
 ## Copy stress rpm onto any of the machines
 ```
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
-aws ec2 describe-instances --instance-ids <instance_id> --profile staging --query 'Reservations[0].Instances[0].PrivateIpAddress'
+aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
 scp -i <ssh_key> rpm/stress.rpm <user>@<ip_address>:/tmp/
 ```
 

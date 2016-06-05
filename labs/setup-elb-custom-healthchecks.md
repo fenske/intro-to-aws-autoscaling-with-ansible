@@ -10,17 +10,17 @@ ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
 
 ## Verify the instance states in the group
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances' --profile <aws_profile_name>
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 ## Verify the states of the instances towards ELB
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb --profile <aws_profile_name> 
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb 
 ``` 
 
 ## Get instance ips
 ```
-aws ec2 describe-instances --instance-ids <instance_id> --profile staging --query 'Reservations[0].Instances[0].PrivateIpAddress'
+aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
 ```
 
 ## Ssh to any of the nodes
@@ -35,12 +35,12 @@ docker stop rest
 
 ## Verify the instance states in the group
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances' --profile <aws_profile_name>
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 ## Verify the states of the instances towards ELB
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb --profile <aws_profile_name>
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
 ```
 
 ## Verify that app is working
