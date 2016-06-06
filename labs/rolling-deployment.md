@@ -8,6 +8,10 @@ In this lab you will perform rolling deployment for your autoscaling group.
 ```
 aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
 ```
+#### Get ELB hostname
+```
+aws elb describe-load-balancers --load-balancer-names workshop-ec2-healthchecks-lb --query 'LoadBalancerDescriptions[0].DNSName'
+```
 
 ### Lab
 
@@ -30,12 +34,12 @@ aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-
 #### Verify that app is working for each instance and ELB
 ```
 curl http://<instance_ip>:8080/ping
-curl http://internal-workshop-ec2-healthchecks-lb-265626770.eu-west-1.elb.amazonaws.com/ping
+curl http://<elb_hostname>/ping
 ```
 
 #### Verify that new feature doesn't work
 ```
-curl http://internal-workshop-ec2-healthchecks-lb-265626770.eu-west-1.elb.amazonaws.com/foo
+curl http://<elb_hostname>/foo
 ```
 
 ## Check configuration name
@@ -103,13 +107,13 @@ aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-
 #### Verify that app is working for each instance and ELB
 ```
 curl http://<instance_ip>:8080/ping
-curl http://internal-workshop-ec2-healthchecks-lb-265626770.eu-west-1.elb.amazonaws.com/ping
+curl http://<elb_hostname>/ping
 ```
 
 #### Verify that new feature works for each instance and ELB
 ```
 curl http://<instance_ip>:8080/foo
-curl http://internal-workshop-ec2-healthchecks-lb-265626770.eu-west-1.elb.amazonaws.com/foo
+curl http://<elb_hostname>/foo
 ```
 
 // TODO How to make sure instances in different zones 
