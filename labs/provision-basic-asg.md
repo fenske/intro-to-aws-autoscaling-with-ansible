@@ -1,39 +1,29 @@
-# Provisioning Autoscaling group with sereral EC2 instances and ELB
+# Provision autoscaling group
 
-In this lab you will provision an AWS autoscaling group which will create an ELB and 2 EC2 instances with EC2 instances healthchecks
+In this lab you will provision an AWS autoscaling group comprised of an ELB and 2 EC2 instances.
 
-## Provision an autoscaling group
+#### Provision a group
 
 ```
 ansible-playbook provision-basic-asg-playbook.yml
 ```
 
-## Verify the instance states in the group
+#### Shut down one of the instances
+```
+aws ec2 terminate-instances --instance-ids <instance_id>
+```
+
+#### Verify instance states
 ```
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
-## Verify the states of the instances towards ELB
+#### Verify ELB state
 ```
 aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
 ```
 
-## Shutting down an instance
+#### Verify app state for each machine 
 ```
-aws ec2 terminate-instances --instance-ids <ids_of_instanecs>
-```
-
-## Verify the instance states in the group
-```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
-```
-
-## Verify the states of the instances towards ELB
-```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
-```
-
-## Verify that app is working
-```
-curl http://<ip_addr>:8080/ping
+curl http://<instance_ip>:8080/ping
 ```
