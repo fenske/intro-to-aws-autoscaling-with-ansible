@@ -47,7 +47,6 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 ```
 ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "app_version=0.0.2 lc=new-configuration"
 ```
-//TODO This step needs to be verified
 
 ## Check configuration name again
 ```
