@@ -1,6 +1,6 @@
 # Rolling deployment
 
-In this lab you perform rolling deployment for your autoscaling group.
+In this lab you will perform rolling deployment for your autoscaling group.
 
 ### Helpful commands
 
