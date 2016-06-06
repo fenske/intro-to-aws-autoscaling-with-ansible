@@ -15,7 +15,22 @@ aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0]
 
 ```
 ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
-``` 
+```
+
+#### Verify instance states
+```
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+```
+
+#### Verify ELB state
+```
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+```
+
+#### Verify that app is working for each instance
+```
+curl http://<instance_ip>:8080/ping
+```
 
 #### SSH to one of the instances
 ```
@@ -37,7 +52,7 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb 
 ```
 
-#### Verify app state for each instance 
+#### Verify that app is working for each instance 
 ```
 curl http://<instance_ip>:8080/ping
 ```

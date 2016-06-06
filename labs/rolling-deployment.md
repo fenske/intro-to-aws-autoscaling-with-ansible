@@ -1,33 +1,54 @@
 # Rolling deployment
 
-## Provision an autoscaling group
+In this lab you perform rolling deployment for your autoscaling group.
+
+### Helpful commands
+
+#### Get instance IPs
+```
+aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
+```
+
+### Lab
+
+#### Provision a group
 
 ```
 ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
 ```
 
-## Verify the instance states in the group
+#### Verify instance states
 ```
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
-
-## Verify the states of the instances towards ELB
+#### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb 
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
 ```
 
-## Check the name of the current configuration
+#### Verify that app is working for each instance
+```
+curl http://<instance_ip>:8080/ping
+```
+
+#### Verify that new feature doesn't work for each instance
+```
+curl http://<instance_ip>:8080/foo
+```
+
+## Check configuration name
 ```
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].LaunchConfigurationName'
 ```
 
-## Change autoscaling configuration and provision the autoscaling group again
+## Provision the group again with an updated configuration
 ```
-ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
+ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "app_version=0.0.2" "lc=new-configuration"
 ```
+//TODO This step needs to be verified
 
-## Check the name of the current configuration
+## Check configuration name again
 ```
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].LaunchConfigurationName'
 ```
@@ -35,25 +56,59 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 ## Update the app on the existing instances
 ```
 export ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook -u cloud-user -i ec2.py --limit tag_aws_autoscaling_groupName_workshop_ec2_healthchecks_asg  provision-to-existing-instances-playbook.yml --extra-vars "app_version=0.0.2" --private-key <ssh_key>
+ansible-playbook -u <user> -i ec2.py --limit tag_aws_autoscaling_groupName_workshop_ec2_healthchecks_asg  provision-to-existing-instances-playbook.yml --extra-vars "app_version=0.0.2" --private-key <ssh_key>
 ```
 
-## Verify the states of the instances towards ELB
+#### Verify instance states
+```
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+```
+
+#### Verify ELB state
+```
+aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+```
+
+#### Verify that app is working for each instance
+```
+curl http://<instance_ip>:8080/ping
+```
+
+#### Verify that new feature works for each instance
+```
+curl http://<instance_ip>:8080/foo
+```
+
+#### SSH to one of the instances
+```
+ssh <user>@<instance_ip> -i <path_to_key>
+```
+
+#### Stop the app container
+```
+docker stop rest
+```
+
+#### Verify instance states
+```
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+```
+
+#### Verify ELB state
 ```
 aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb 
 ```
 
-## Verify the new functionality
-### Via ELB
+#### Verify that app is working for each instance
 ```
-curl http://<elb_hostname>/foo
-```
-### For each instance
-```
-aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
-curl http://<instance_ip>_>/foo
+curl http://<instance_ip>:8080/ping
 ```
 
-## TODO Make sure instances in different zones 
+#### Verify that new feature works for each instance
+```
+curl http://<instance_ip>:8080/foo
+```
+
+// TODO How to make sure instances in different zones 
  
 
