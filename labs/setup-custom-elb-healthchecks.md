@@ -1,4 +1,4 @@
-# Provisioning Autoscaling group with sereral EC2 instances, ELB and custom ELB healthchecks
+# Set up custom healthchecks
 
 In this lab you will set up custom healthchecks for instances in the group.
 
