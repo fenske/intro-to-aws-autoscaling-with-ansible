@@ -55,7 +55,7 @@ watch uptime
 
 #### Clean up
 ```
-ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "asg"
-ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "lc"
+ansible-playbook provision-elb-ec2-metric-alarm-playbook.yml --extra-vars "state=absent" --tags "asg"
+ansible-playbook provision-elb-ec2-metric-alarm-playbook.yml --extra-vars "state=absent" --tags "lc"
 ```
 // TODO what do those 3 numbers mean?

@@ -54,6 +54,6 @@ curl http://<instance_ip>:8080/ping
 
 #### Clean up
 ```
-ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "asg"
-ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "lc"
+ansible-playbook provision-basic-asg-playbook.yml --extra-vars "state=absent" --tags "asg"
+ansible-playbook provision-basic-asg-playbook.yml --extra-vars "state=absent" --tags "lc"
 ```
