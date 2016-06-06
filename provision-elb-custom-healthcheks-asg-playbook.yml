@@ -44,10 +44,6 @@
 
    #info on the ec2_lc module
    #http://docs.ansible.com/ansible/ec2_lc_module.html
-
-   #ansible 2.0 required for this task, installation directions at
-   #http://stackoverflow.com/questions/34903026/update-ansible-1-9-4-to-ansible-2-0
-   #launch config
    - ec2_lc:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
