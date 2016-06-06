@@ -2,6 +2,15 @@
 
 In this lab you will provision an AWS autoscaling group comprised of an ELB and 2 EC2 instances.
 
+### Helpful commands
+
+#### Get instance IPs
+```
+aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
+```
+
+### Lab
+
 #### Provision a group
 
 ```
