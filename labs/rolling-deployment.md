@@ -116,6 +116,13 @@ curl http://<instance_ip>:8080/foo
 curl http://<elb_hostname>/foo
 ```
 
-// TODO How to make sure instances in different zones 
+#### Clean up
+```
+ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "asg"
+ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "lc"
+```
+
+// TODO How to make sure instances in different zones
+// TODO Fix quotes 
  
 

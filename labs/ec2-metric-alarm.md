@@ -53,4 +53,9 @@ watch uptime
 
 #### Stop 'watch uptime' and verify that ASG scales down 
 
+#### Clean up
+```
+ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "asg"
+ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent" --tags "lc"
+```
 // TODO what do those 3 numbers mean?

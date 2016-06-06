@@ -11,34 +11,28 @@
    lc: "{{architecture}}_lc"
 
   vars_files:
-    #contains the variables ami_access and ami_secret
     - amiKeys.yml
-    #contains the variables keypair, group, subnetID and regi
     - regionInfo.yml
 
   tasks:
-   #http://stackoverflow.com/questions/34016583/ansible-ec2-elb-lb-https-to-http-error
-   #load balancer
-   - ec2_elb_lb:
+   - name: ELB
+     ec2_elb_lb:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       security_group_ids: '{{group}}'
       name: "{{loadb}}"
       region: "{{regi}}"
       subnets: "{{ subnetID }}"
-      state: present
+      state: "{{ state }}"
       listeners:
        - protocol: http
          load_balancer_port: 80
          instance_port: 80
 
-   #info on the ec2_lc module
-   #http://docs.ansible.com/ansible/ec2_lc_module.html
-
-   #ansible 2.0 required for this task, installation directions at
-   #http://stackoverflow.com/questions/34903026/update-ansible-1-9-4-to-ansible-2-0
-   #launch config
-   - ec2_lc:
+   - name: Launch Configuration
+     tags:
+      - lc
+     ec2_lc:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       region:  "{{regi}}"
@@ -54,10 +48,12 @@
          iops: 3000
          delete_on_termination: true
       user_data: "{{ bootstrap_content }}"
+      state: "{{ state }}"
 
-   #http://docs.ansible.com/ansible/ec2_asg_module.html
-   #auto scaling group
-   - ec2_asg:
+   - name: Auto-scaling group
+     tags:
+      - asg
+     ec2_asg:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       region:  "{{ regi }}"
@@ -70,3 +66,4 @@
       vpc_zone_identifier: '{{ subnetID }}'
       wait_for_instances: true
       tags: "{{ tags }}"
+      state: "{{ state }}"
