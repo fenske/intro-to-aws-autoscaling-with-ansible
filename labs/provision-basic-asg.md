@@ -23,7 +23,7 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
 ```
 
-#### Verify app state for each machine 
+#### Verify app state for each instance 
 ```
 curl http://<instance_ip>:8080/ping
 ```
