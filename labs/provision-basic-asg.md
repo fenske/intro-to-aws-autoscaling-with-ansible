@@ -19,7 +19,7 @@ ansible-playbook provision-basic-asg-playbook.yml
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-basic_asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
@@ -39,12 +39,12 @@ aws ec2 terminate-instances --instance-ids <instance_id>
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-basic_asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+aws elb describe-instance-health --load-balancer-name workshop-basic-lb
 ```
 
 #### Verify that app is working for each instance 
