@@ -17,5 +17,5 @@
           name: rest
           state: reloaded
           ports:
-          - "8080:8080"
+          - '8080:8080'
       become: yes

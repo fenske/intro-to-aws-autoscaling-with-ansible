@@ -4,11 +4,11 @@
   gather_facts: false
 
   vars:
-   image: "{{ ami }}"
-   architecture: "workshop-ec2-healthchecks"
-   loadb: "{{architecture}}-lb"
-   auto_sc:  "{{architecture}}-asg"
-   lc: "{{architecture}}-lc"
+   image: '{{ ami }}'
+   architecture: 'workshop-ec2-healthchecks'
+   loadb: '{{architecture}}-lb'
+   auto_sc:  '{{architecture}}-asg'
+   lc: '{{architecture}}-lc'
 
   vars_files:
     - amiKeys.yml
@@ -21,19 +21,19 @@
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       security_group_ids: '{{group}}'
-      name: "{{loadb}}"
-      region: "{{regi}}"
+      name: '{{loadb}}'
+      region: '{{regi}}'
       health_check:
         ping_protocol: http
         ping_port: 8080
-        ping_path: "/health"
+        ping_path: '/health'
         response_timeout: 5
         interval: 60
         unhealthy_threshold: 2
         healthy_threshold: 2
-      subnets: "{{ subnetID }}"
-      security_group_ids: "{{ elb_security_group_ids }}"
-      state: "{{ state }}"
+      subnets: '{{ subnetID }}'
+      security_group_ids: '{{ elb_security_group_ids }}'
+      state: '{{ state }}'
       listeners:
        - protocol: http
          load_balancer_port: 80
@@ -45,10 +45,10 @@
      ec2_lc:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  "{{regi}}"
+      region:  '{{regi}}'
       name: '{{lc}}'
       image_id: '{{ image }}'
-      key_name: "{{ keypair }}"
+      key_name: '{{ keypair }}'
       security_groups: '{{ group }}'
       instance_type: t2.micro
       volumes:
@@ -57,8 +57,8 @@
          device_type: io1
          iops: 3000
          delete_on_termination: true
-      user_data: "{{ bootstrap_content }}"
-      state: "{{ state }}"
+      user_data: '{{ bootstrap_content }}'
+      state: '{{ state }}'
   # TODO what is 'volumes' section for?
 
    - name: Auto-scaling Group
@@ -67,7 +67,7 @@
      ec2_asg:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  "{{ regi }}"
+      region:  '{{ regi }}'
       name: '{{ auto_sc }}'
       load_balancers: '{{ loadb }}'
       launch_config_name: '{{ lc }}'
@@ -78,5 +78,5 @@
       wait_for_instances: false
       health_check_period: 300
       health_check_type: ELB
-      tags: "{{ tags }}"
-      state: "{{ state }}"
+      tags: '{{ tags }}'
+      state: '{{ state }}'

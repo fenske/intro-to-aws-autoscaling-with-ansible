@@ -123,8 +123,6 @@ ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars 
 ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars "state=absent lc=new-configuration" --tags "lc"
 ```
 
-//TODO How to remove a new configuration
-// TODO How to make sure instances in different zones
-// TODO Fix quotes 
+// TODO How to make sure instances in different zones 
  
 

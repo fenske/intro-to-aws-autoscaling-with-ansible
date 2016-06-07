@@ -4,11 +4,11 @@
   gather_facts: false
 
   vars:
-   image: "{{ ami }}"
-   architecture: "workshop-ec2-healthchecks"
-   loadb: "{{architecture}}-lb"
-   auto_sc:  "{{architecture}}-asg"
-   lc: "{{architecture}}-lc"
+   image: '{{ ami }}'
+   architecture: 'workshop-ec2-healthchecks'
+   loadb: '{{architecture}}-lb'
+   auto_sc:  '{{architecture}}-asg'
+   lc: '{{architecture}}-lc'
 
   vars_files:
     - amiKeys.yml
@@ -21,19 +21,19 @@
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       security_group_ids: '{{group}}'
-      name: "{{loadb}}"
-      region: "{{regi}}"
+      name: '{{loadb}}'
+      region: '{{regi}}'
       health_check:
         ping_protocol: http
         ping_port: 8080
-        ping_path: "/health"
+        ping_path: '/health'
         response_timeout: 5
         interval: 60
         unhealthy_threshold: 2
         healthy_threshold: 2
-      subnets: "{{ subnetID }}"
-      security_group_ids: "{{ elb_security_group_ids }}"
-      state: "{{ state }}"
+      subnets: '{{ subnetID }}'
+      security_group_ids: '{{ elb_security_group_ids }}'
+      state: '{{ state }}'
       listeners:
        - protocol: http
          load_balancer_port: 80
@@ -45,10 +45,10 @@
      ec2_lc:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  "{{regi}}"
+      region:  '{{regi}}'
       name: '{{lc}}'
       image_id: '{{ image }}'
-      key_name: "{{ keypair }}"
+      key_name: '{{ keypair }}'
       security_groups: '{{ group }}'
       instance_type: t2.micro
       volumes:
@@ -57,8 +57,8 @@
          device_type: io1
          iops: 3000
          delete_on_termination: true
-      user_data: "{{ bootstrap_content }}"
-      state: "{{ state }}"
+      user_data: '{{ bootstrap_content }}'
+      state: '{{ state }}'
   # TODO what is 'volumes' section for?
 
    - name: Autoscaling Group
@@ -67,7 +67,7 @@
      ec2_asg:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  "{{ regi }}"
+      region:  '{{ regi }}'
       name: '{{ auto_sc }}'
       load_balancers: '{{ loadb }}'
       launch_config_name: '{{ lc }}'
@@ -78,54 +78,54 @@
       wait_for_instances: false
       health_check_period: 300
       health_check_type: ELB
-      tags: "{{ tags }}"
-      state: "{{ state }}"
+      tags: '{{ tags }}'
+      state: '{{ state }}'
 
    - name: Scaling Policy
      ec2_scaling_policy:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region: "{{regi}}"
-      state: "{{ state }}"
-      name: "{{item.pol_name}}"
-      adjustment_type: "ChangeInCapacity"
-      asg_name: "{{auto_sc}}"
-      scaling_adjustment: "{{item.changes}}"
+      region: '{{regi}}'
+      state: '{{ state }}'
+      name: '{{item.pol_name}}'
+      adjustment_type: 'ChangeInCapacity'
+      asg_name: '{{auto_sc}}'
+      scaling_adjustment: '{{item.changes}}'
       min_adjustment_step: 1
       cooldown: 300
      register: policies
      with_items:
-      - pol_name: "cpuUP_{{auto_sc}}_policy"
+      - pol_name: 'cpuUP_{{auto_sc}}_policy'
         changes: +1
-      - pol_name: "cpuDown_{{auto_sc}}_policy"
+      - pol_name: 'cpuDown_{{auto_sc}}_policy'
         changes: -1
 
    - name: Metric Alarms
      ec2_metric_alarm:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      state: "{{ state }}"
-      region: "{{regi}}"
-      name: "{{item.names}}"
-      metric: "CPUUtilization"
-      namespace: "AWS/EC2"
+      state: '{{ state }}'
+      region: '{{regi}}'
+      name: '{{item.names}}'
+      metric: 'CPUUtilization'
+      namespace: 'AWS/EC2'
       statistic: Average
-      comparison: "{{item.compare}}"
-      threshold: "{{item.limits}}"
+      comparison: '{{item.compare}}'
+      threshold: '{{item.limits}}'
       period: 60
       evaluation_periods: 1
-      unit: "Percent"
-      description: "{{item.desc}}"
+      unit: 'Percent'
+      description: '{{item.desc}}'
       dimensions: {'AutoScalingGroupName':'{{auto_sc}}'}
-      alarm_actions: "{{item.pol}}"
+      alarm_actions: '{{item.pol}}'
      with_items:
-      - names: "cpuUP_{{auto_sc}}"
-        compare: ">="
-        limits: "20.0"
-        desc: "This will alarm when the average cpu usage of the ASG is greater than 20% for 1 minute"
+      - names: 'cpuUP_{{auto_sc}}'
+        compare: '>='
+        limits: '20.0'
+        desc: 'This will alarm when the average cpu usage of the ASG is greater than 20% for 1 minute'
         pol: "{{policies.results[0]['arn']}}"
-      - names: "cpuDown_{{auto_sc}}"
-        compare: "<="
-        limits: "10.0"
-        desc: "This will alarm when the average cpu usage of the ASG is less than 10% for 1 minute"
+      - names: 'cpuDown_{{auto_sc}}'
+        compare: '<='
+        limits: '10.0'
+        desc: 'This will alarm when the average cpu usage of the ASG is less than 10% for 1 minute'
         pol: "{{policies.results[1]['arn']}}"

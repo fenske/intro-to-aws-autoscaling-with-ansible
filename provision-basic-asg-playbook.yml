@@ -4,11 +4,11 @@
   gather_facts: false
 
   vars:
-   image: "{{ ami }}"
-   architecture: "workshop-basic"
-   loadb: "{{architecture}}-lb"
-   auto_sc:  "{{architecture}}_asg"
-   lc: "{{architecture}}_lc"
+   image: '{{ ami }}'
+   architecture: 'workshop-basic'
+   loadb: '{{architecture}}-lb'
+   auto_sc:  '{{architecture}}_asg'
+   lc: '{{architecture}}_lc'
 
   vars_files:
     - amiKeys.yml
@@ -20,10 +20,10 @@
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       security_group_ids: '{{group}}'
-      name: "{{loadb}}"
-      region: "{{regi}}"
-      subnets: "{{ subnetID }}"
-      state: "{{ state }}"
+      name: '{{loadb}}'
+      region: '{{regi}}'
+      subnets: '{{ subnetID }}'
+      state: '{{ state }}'
       listeners:
        - protocol: http
          load_balancer_port: 80
@@ -35,10 +35,10 @@
      ec2_lc:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  "{{regi}}"
+      region:  '{{regi}}'
       name: '{{lc}}'
       image_id: '{{ image }}'
-      key_name: "{{ keypair }}"
+      key_name: '{{ keypair }}'
       security_groups: '{{ group }}'
       instance_type: t2.micro
       volumes:
@@ -47,8 +47,8 @@
          device_type: io1
          iops: 3000
          delete_on_termination: true
-      user_data: "{{ bootstrap_content }}"
-      state: "{{ state }}"
+      user_data: '{{ bootstrap_content }}'
+      state: '{{ state }}'
 
    - name: Auto-scaling group
      tags:
@@ -56,7 +56,7 @@
      ec2_asg:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  "{{ regi }}"
+      region:  '{{ regi }}'
       name: '{{ auto_sc }}'
       load_balancers: '{{ loadb }}'
       launch_config_name: '{{ lc }}'
@@ -65,5 +65,5 @@
       desired_capacity: 2
       vpc_zone_identifier: '{{ subnetID }}'
       wait_for_instances: true
-      tags: "{{ tags }}"
-      state: "{{ state }}"
+      tags: '{{ tags }}'
+      state: '{{ state }}'
