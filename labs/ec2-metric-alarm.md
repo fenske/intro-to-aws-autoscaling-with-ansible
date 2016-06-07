@@ -58,4 +58,3 @@ watch uptime
 ansible-playbook provision-elb-ec2-metric-alarm-playbook.yml --extra-vars "state=absent" --tags "asg"
 ansible-playbook provision-elb-ec2-metric-alarm-playbook.yml --extra-vars "state=absent" --tags "lc"
 ```
-// TODO what do those 3 numbers mean?
