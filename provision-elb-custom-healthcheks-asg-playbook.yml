@@ -6,9 +6,9 @@
   vars:
    image: '{{ ami }}'
    architecture: 'workshop-ec2-healthchecks'
-   loadb: '{{architecture}}-lb'
-   auto_sc:  '{{architecture}}-asg'
-   lc: '{{architecture}}-lc'
+   loadb: '{{ architecture }}-lb'
+   auto_sc:  '{{ architecture }}-asg'
+   lc: '{{ architecture }}-lc'
 
   vars_files:
     - amiKeys.yml
@@ -20,9 +20,9 @@
       scheme: internal
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      security_group_ids: '{{group}}'
-      name: '{{loadb}}'
-      region: '{{regi}}'
+      security_group_ids: '{{ group }}'
+      name: '{{ loadb }}'
+      region: '{{ regi }}'
       health_check:
         ping_protocol: http
         ping_port: 8080

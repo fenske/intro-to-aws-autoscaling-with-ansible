@@ -6,9 +6,9 @@
   vars:
    image: '{{ ami }}'
    architecture: 'workshop-ec2-healthchecks'
-   loadb: '{{architecture}}-lb'
-   auto_sc:  '{{architecture}}-asg'
-   lc: '{{architecture}}-lc'
+   loadb: '{{ architecture }}-lb'
+   auto_sc:  '{{ architecture }}-asg'
+   lc: '{{ architecture }}-lc'
 
   vars_files:
     - amiKeys.yml
@@ -21,8 +21,8 @@
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       security_group_ids: '{{group}}'
-      name: '{{loadb}}'
-      region: '{{regi}}'
+      name: '{{ loadb }}'
+      region: '{{ regi }}'
       health_check:
         ping_protocol: http
         ping_port: 8080
@@ -85,19 +85,19 @@
      ec2_scaling_policy:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region: '{{regi}}'
+      region: '{{ regi }}'
       state: '{{ state }}'
-      name: '{{item.pol_name}}'
+      name: '{{item.pol_name }}'
       adjustment_type: 'ChangeInCapacity'
-      asg_name: '{{auto_sc}}'
-      scaling_adjustment: '{{item.changes}}'
+      asg_name: '{{ auto_sc }}'
+      scaling_adjustment: '{{ item.changes }}'
       min_adjustment_step: 1
       cooldown: 300
      register: policies
      with_items:
-      - pol_name: 'cpuUP_{{auto_sc}}_policy'
+      - pol_name: 'cpuUP_{{ auto_sc }}_policy'
         changes: +1
-      - pol_name: 'cpuDown_{{auto_sc}}_policy'
+      - pol_name: 'cpuDown_{{ auto_sc }}_policy'
         changes: -1
 
    - name: Metric Alarms
@@ -105,8 +105,8 @@
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
       state: '{{ state }}'
-      region: '{{regi}}'
-      name: '{{item.names}}'
+      region: '{{ regi }}'
+      name: '{{ item.names }}'
       metric: 'CPUUtilization'
       namespace: 'AWS/EC2'
       statistic: Average
@@ -115,17 +115,17 @@
       period: 60
       evaluation_periods: 1
       unit: 'Percent'
-      description: '{{item.desc}}'
-      dimensions: {'AutoScalingGroupName':'{{auto_sc}}'}
-      alarm_actions: '{{item.pol}}'
+      description: '{{ item.desc }}'
+      dimensions: {'AutoScalingGroupName':'{{ auto_sc }}'}
+      alarm_actions: '{{ item.pol }}'
      with_items:
-      - names: 'cpuUP_{{auto_sc}}'
+      - names: 'cpuUP_{{ auto_sc }}'
         compare: '>='
         limits: '20.0'
         desc: 'This will alarm when the average cpu usage of the ASG is greater than 20% for 1 minute'
-        pol: "{{policies.results[0]['arn']}}"
-      - names: 'cpuDown_{{auto_sc}}'
+        pol: "{{ policies.results[0]['arn'] }}"
+      - names: 'cpuDown_{{ auto_sc }}'
         compare: '<='
         limits: '10.0'
         desc: 'This will alarm when the average cpu usage of the ASG is less than 10% for 1 minute'
-        pol: "{{policies.results[1]['arn']}}"
+        pol: "{{ policies.results[1]['arn'] }}"

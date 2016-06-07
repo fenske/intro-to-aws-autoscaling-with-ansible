@@ -6,9 +6,9 @@
   vars:
    image: '{{ ami }}'
    architecture: 'workshop-basic'
-   loadb: '{{architecture}}-lb'
-   auto_sc:  '{{architecture}}_asg'
-   lc: '{{architecture}}_lc'
+   loadb: '{{ architecture }}-lb'
+   auto_sc:  '{{ architecture }}_asg'
+   lc: '{{ architecture }}_lc'
 
   vars_files:
     - amiKeys.yml
@@ -19,9 +19,9 @@
      ec2_elb_lb:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      security_group_ids: '{{group}}'
-      name: '{{loadb}}'
-      region: '{{regi}}'
+      security_group_ids: '{{ group }}'
+      name: '{{ loadb }}'
+      region: '{{ regi }}'
       subnets: '{{ subnetID }}'
       state: '{{ state }}'
       listeners:
@@ -35,8 +35,8 @@
      ec2_lc:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      region:  '{{regi}}'
-      name: '{{lc}}'
+      region:  '{{ regi }}'
+      name: '{{ lc }}'
       image_id: '{{ image }}'
       key_name: '{{ keypair }}'
       security_groups: '{{ group }}'
