@@ -64,6 +64,6 @@
       max_size: 4
       desired_capacity: 2
       vpc_zone_identifier: '{{ subnetID }}'
-      wait_for_instances: true
+      wait_for_instances: false
       tags: '{{ tags }}'
       state: '{{ state }}'

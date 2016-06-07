@@ -8,7 +8,6 @@
     - pip: name=docker-py
       become: yes
 
-  #TODO Find a way how to update docker on the server side
   tasks:
     - name: Provision app
       docker:

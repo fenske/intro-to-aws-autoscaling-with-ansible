@@ -1,3 +1,2 @@
 *.retry
-amiKeys.yml
-regionInfo.yml
+*.local

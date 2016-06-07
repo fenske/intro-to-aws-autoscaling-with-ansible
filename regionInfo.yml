@@ -1,0 +1,10 @@
+---
+# Below are the possible examples filled with some random values
+
+keypair: "my-keypair"
+group: ['sg-1234a123', 'sg-a123bcde' ]
+subnetID: ['subnet-1234a123', 'subnet-a123bcde']
+#the region of the subnet you are using
+regi: "in-somewhere-1"
+tags: [Tag_key: tag_value]
+elb_security_group_ids: 'sg-1234a123'
