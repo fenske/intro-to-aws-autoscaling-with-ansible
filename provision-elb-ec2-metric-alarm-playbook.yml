@@ -59,7 +59,6 @@
          delete_on_termination: true
       user_data: '{{ bootstrap_content }}'
       state: '{{ state }}'
-  # TODO what is 'volumes' section for?
 
    - name: Autoscaling Group
      tags:

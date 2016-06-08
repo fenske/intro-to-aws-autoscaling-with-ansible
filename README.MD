@@ -1,5 +1,7 @@
 # Intro to AWS Autoscaling Workshop
 
+This lab is an introduction to the deployment of autoscaling groups in Amazon VPC.
+
 ## Outline
 
 * [Provision autoscaling group](labs/provision-basic-asg.md)
