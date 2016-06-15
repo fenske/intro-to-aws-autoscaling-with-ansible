@@ -19,7 +19,7 @@
      ec2_elb_lb:
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      security_group_ids: '{{ group }}'
+      security_group_ids: '{{ elb_security_group_ids }}'
       name: '{{ loadb }}'
       region: '{{ regi }}'
       subnets: '{{ subnetID }}'
