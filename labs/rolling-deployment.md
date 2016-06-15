@@ -23,12 +23,12 @@ ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+aws elb describe-instance-health --load-balancer-name workshop-elb-custom-checks-lb
 ```
 
 #### Verify that app is working for each instance and ELB
@@ -65,12 +65,12 @@ ansible-playbook -u <ssh_user> -i ec2.py --limit tag_aws_autoscaling_groupName_w
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+aws elb describe-instance-health --load-balancer-name workshop-elb-custom-checks-lb
 ```
 
 #### Verify that app is working for each instance
