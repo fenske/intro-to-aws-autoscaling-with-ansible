@@ -20,7 +20,6 @@
       scheme: internal
       aws_access_key: '{{ ami_access }}'
       aws_secret_key: '{{ ami_secret }}'
-      security_group_ids: '{{ group }}'
       name: '{{ loadb }}'
       region: '{{ regi }}'
       health_check:
