@@ -19,7 +19,7 @@ ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
