@@ -60,7 +60,7 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 ## Update the app on the existing instances
 ```
 export ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook -u <ssh_user> -i ec2.py --limit tag_aws_autoscaling_groupName_workshop-elb-custom-checks_asg  provision-to-existing-instances-playbook.yml --extra-vars "app_version=0.0.2" --private-key <ssh_key>
+ansible-playbook -u <ssh_user> -i ec2.py --limit tag_aws_autoscaling_groupName_workshop_elb_custom_checks_asg  provision-to-existing-instances-playbook.yml --extra-vars "app_version=0.0.2" --private-key <ssh_key>`
 ```
 
 #### Verify instance states
