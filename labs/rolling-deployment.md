@@ -10,7 +10,7 @@ aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0]
 ```
 #### Get ELB hostname
 ```
-aws elb describe-load-balancers --load-balancer-names workshop-ec2-healthchecks-lb --query 'LoadBalancerDescriptions[0].DNSName'
+aws elb describe-load-balancers --load-balancer-names workshop-elb-custom-checks-lb --query 'LoadBalancerDescriptions[0].DNSName'
 ```
 
 ### Lab
@@ -44,7 +44,7 @@ curl http://<elb_hostname>/foo
 
 ## Check configuration name
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].LaunchConfigurationName'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].LaunchConfigurationName'
 ```
 
 ## Provision the group again with an updated configuration
@@ -54,7 +54,7 @@ ansible-playbook provision-elb-custom-healthcheks-asg-playbook.yml --extra-vars 
 
 ## Check configuration name again
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].LaunchConfigurationName'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].LaunchConfigurationName'
 ```
 
 ## Update the app on the existing instances
@@ -96,12 +96,12 @@ docker stop rest
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-custom-checks-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb 
+aws elb describe-instance-health --load-balancer-name workshop-elb-custom-checks-lb 
 ```
 
 #### Verify that app is working for each instance and ELB
