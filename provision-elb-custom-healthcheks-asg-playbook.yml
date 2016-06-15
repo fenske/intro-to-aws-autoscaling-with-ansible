@@ -5,7 +5,7 @@
 
   vars:
    image: '{{ ami }}'
-   architecture: 'workshop-ec2-healthchecks'
+   architecture: 'workshop-elb-custom-healthchecks'
    loadb: '{{ architecture }}-lb'
    auto_sc:  '{{ architecture }}-asg'
    lc: '{{ architecture }}-lc'

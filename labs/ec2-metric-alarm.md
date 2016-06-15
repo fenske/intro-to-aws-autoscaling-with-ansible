@@ -18,22 +18,22 @@ ansible-playbook provision-elb-ec2-metric-alarm-playbook.yml
 
 #### Verify instance states
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-ec2-metric-alarm-asg --query 'AutoScalingGroups[0].Instances'
 ```
 
 #### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+aws elb describe-instance-health --load-balancer-name workshop-elb-ec2-metric-alarm-lb
 ```
 
 #### Verify alarms
 ```
-aws cloudwatch describe-alarms --alarm-names cpuDown_workshop-ec2-healthchecks-asg cpuUP_workshop-ec2-healthchecks-asg
+aws cloudwatch describe-alarms --alarm-names cpuDown_workshop-elb-ec2-metric-alarm-asg cpuUP_workshop-elb-ec2-metric-alarm-asg
 ```
 
 #### Copy stress rpm onto any of the instances
 ```
-aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-ec2-healthchecks-asg --query 'AutoScalingGroups[0].Instances'
+aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop-elb-ec2-metric-alarm-asg --query 'AutoScalingGroups[0].Instances'
 aws ec2 describe-instances --instance-ids <instance_id> --query 'Reservations[0].Instances[0].PrivateIpAddress'
 scp -i <ssh_key> rpm/stress.rpm <user>@<instance_ip>:/tmp/
 ```

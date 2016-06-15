@@ -24,7 +24,7 @@ aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names workshop
 
 #### Verify ELB state
 ```
-aws elb describe-instance-health --load-balancer-name workshop-ec2-healthchecks-lb
+aws elb describe-instance-health --load-balancer-name workshop-basic-lb
 ```
 
 #### Verify app state for each instance 
