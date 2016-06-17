@@ -1,4 +1,5 @@
 ---
 app_version: 0.0.1
 bootstrap_content: "{{ lookup('template', 'bootstrap.sh') }}"
+provision_app: "{{ lookup('file', 'provision-to-existing-instances-playbook.yml') }}"
 state: present

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-#TODO Without a timeout "404 page not found" error happens
-sleep 5
+sudo yum -y install ansible
 
-docker run -p 8080:8080 -d --name rest "antonfenske/rest-webservice:{{ app_version }}"
+cat > /tmp/provision-app.yml <<"EOF"
+{{ provision_app }}
+EOF
+
+sudo ansible-playbook -i "localhost," -c local /tmp/provision-app.yml --extra-vars "app_version={{ app_version }}"
